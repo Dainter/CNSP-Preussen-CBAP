@@ -47,7 +47,7 @@ namespace CNSP.ComBehavior
             GraCam = Graphics.FromImage(img);
  
             GraCam.SmoothingMode = GlobalPaintStyle.SmoothMode;
-            PicCam.BackgroundImage = img;
+            PicCam.Image = img;
 
 
             //主窗体重置
@@ -66,7 +66,8 @@ namespace CNSP.ComBehavior
         {
             GraphicReset();
             //绘制网络结构图
-            curNetwork.Draw(ref GraCam);    
+            curNetwork.Draw(ref GraCam);
+            
         }
     }
 }

@@ -171,6 +171,9 @@ namespace CNSP
                 //放置节点
                 PlaceNodes("Random");
                 FillMap();
+                //更新绘图网络
+                ComplexNet.UpdateLocation();
+                ComplexNet.UpdateImage();
                 ComplexNet.Draw(ref GraCam);     //绘制网络
                 AfterCreated();                     //其他事务
             }
