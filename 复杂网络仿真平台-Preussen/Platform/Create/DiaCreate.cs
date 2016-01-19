@@ -8,7 +8,6 @@ using System.Text;
 using System.Windows.Forms;
 using CNSP.Platform;
 using CNSP.Core;
-using CNSP.Platform.Paint;
 
 namespace CNSP.Platform.Create
 {
@@ -16,14 +15,12 @@ namespace CNSP.Platform.Create
     {
         private FrmMain father;
         public  cNet cNetwork;
-        StyleSet PaintStyle;
 
         //构造函数
         public DiaCreate(FrmMain owner)
         {
             InitializeComponent();
             father = owner;
-            PaintStyle = father.GlobalPaintStyle;
         }
 
         //窗体初始化函数
@@ -73,7 +70,7 @@ namespace CNSP.Platform.Create
                     {
                         bOption = false;
                     }
-                    Creator = new BAStrategy(PaintStyle);
+                    Creator = new BAStrategy();
                     break;
                 case "ER随机图":
                     iNumber = Convert.ToInt32(ERNum.Value);
@@ -87,7 +84,7 @@ namespace CNSP.Platform.Create
                     {
                         bOption = false;
                     }
-                    Creator = new ERStrategy(PaintStyle);
+                    Creator = new ERStrategy();
                     break;
                 case "小世界网络":
                     iNumber = Convert.ToInt32(SWNum.Value);
@@ -101,7 +98,7 @@ namespace CNSP.Platform.Create
                     {
                         bOption = false;
                     }
-                    Creator = new SWstrategy(PaintStyle);
+                    Creator = new SWstrategy();
                     break;
                 default:
                     return;

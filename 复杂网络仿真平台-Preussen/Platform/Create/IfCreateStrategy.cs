@@ -5,7 +5,6 @@ using System.Text;
 using CNSP.Core;
 using CNSP.Platform;
 using System.Xml;
-using CNSP.Platform.Paint;
 
 namespace CNSP.Platform.Create
 {

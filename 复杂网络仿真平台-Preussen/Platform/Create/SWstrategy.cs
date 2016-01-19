@@ -3,24 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CNSP.Core;
-using CNSP.Platform;
 
 namespace CNSP.Platform.Create
 {
     public class SWstrategy : IfCreateStrategy
     {
-        StyleSet PaintStyle;   //绘制样式
-        /*
-         * Function: SWstrategy
-         * Description:小世界网络构建算法SWstrategy构造函数
-         * Parameters:
-         *      StyleSet pStyle 绘制样式集
-         * Return Value:SWstrategy
-         */
-        public SWstrategy(StyleSet pStyle)
-        {
-            PaintStyle = pStyle;
-        }
         /*
          * Function: Create
          * Description:实现IfCreateStrategy接口
@@ -38,7 +25,7 @@ namespace CNSP.Platform.Create
             intNei = cParam.Para1;
             intPro = cParam.Para2;
             //构建网络并初始化节点实例
-            NewNet = new cNet(intNum, PaintStyle);
+            NewNet = new cNet(intNum);
             for (i = 0; i < intNum; i++)
             {
                 NewNet.Network.Add(new cNode(i));

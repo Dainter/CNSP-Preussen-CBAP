@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Windows.Forms;
-using CNSP.Platform;
+using CNSP.Platform.Paint;
 
 namespace CNSP.ComBehavior
 {

@@ -7,7 +7,6 @@ using CNSP.Platform;
 using System.IO;
 using System.Drawing;
 using System.Xml;
-using CNSP.Platform.Paint;
 
 namespace CNSP.Platform.IO
 {
@@ -30,7 +29,7 @@ namespace CNSP.Platform.IO
          *      StyleSet pStyle 绘制样式集
          * Return Value:cNet
          */
-        cNet IfIOStrategy.ReadFile(string sPath, StyleSet PaintStyle)
+        cNet IfIOStrategy.ReadFile(string sPath)
         {
             StreamReader  Reader;
             cNet NewNet;
@@ -68,7 +67,7 @@ namespace CNSP.Platform.IO
             Reader.Close();
             Reader.Dispose();
             //初始化网络
-            NewNet = new cNet(intLines, PaintStyle);
+            NewNet = new cNet(intLines);
             intLines = 0;
             //遍历节点字符串列表，加入网络
             foreach(string strLine in store)
@@ -81,8 +80,6 @@ namespace CNSP.Platform.IO
             {
                 return null;
             }
-            //网络初始化
-            NewNet.Initialized();
             return NewNet;
         }
         /*

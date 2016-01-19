@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Xml;
 using System.Drawing;
-using CNSP.Platform;
+using CNSP.Platform.Paint;
 
 namespace CNSP.DataBase
 {

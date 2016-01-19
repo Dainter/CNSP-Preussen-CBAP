@@ -6,7 +6,7 @@ using System.Xml;
 using System.Drawing;
 using System.Drawing.Drawing2D; 
 
-namespace CNSP.Platform
+namespace CNSP.Platform.Paint
 {
     public class StyleSet//样式集，存放用户设定的变量（节点形状，颜色，字符）
     {
@@ -291,6 +291,25 @@ namespace CNSP.Platform
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+    }
+
+
+    public class StyleUpdateEventArgs : EventArgs
+    {
+        StyleSet curStyle;
+
+        public StyleSet NewStyleSet
+        {
+            get
+            {
+                return curStyle;
+            }
+        }
+
+        public StyleUpdateEventArgs(StyleSet NewStyleSet)
+        {
+            curStyle = NewStyleSet;
         }
     }
 }

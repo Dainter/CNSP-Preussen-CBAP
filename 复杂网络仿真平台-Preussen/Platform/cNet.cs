@@ -61,26 +61,25 @@ namespace CNSP.Platform
             }
         }
         //方法///////////////////////////////////////
-        public cNet(int intNum, StyleSet PaintStyle)//外部构造函数
+        public cNet(int intNum)//外部构造函数
         {
             intNumber = intNum;
             intEdge = 0;
             Network = new List<IfPlatform>();    //节点数组长度重定义
             netState = new NetState();
+        }
+
+        //网络初始化，在加入所有节点之后执行一次
+        public void Initialized(StyleSet PaintStyle)
+        {
+            NetworkType();//网络类型分析
+            DegreeStat();//节点度统计
             switch (PaintStyle.Sharp)
             {
                 case StyleSet.sharp.Round:
                     NetPainter = new DefaultStrategy(PaintStyle);
                     break;
             }
-
-        }
-
-        //网络初始化，在加入所有节点之后执行一次
-        public void Initialized()
-        {
-            NetworkType();//网络类型分析
-            DegreeStat();//节点度统计
             NetPainter.UpdateLocation(this.ToXML());//节点坐标刷新
             NetPainter.UpdateImage();//节点图像刷新
         }
@@ -206,38 +205,32 @@ namespace CNSP.Platform
         {
             NetPainter.DrawHighLightNodeEdge(iNum, newLoc, ref GraCam);
         }
-        
+
         //更新网络样式集，并刷新节点图片列表
-        public void UpdateStyle(StyleSet GlobalStyle)
-		{
-            if (GlobalStyle == null)
+        public void UpdateStyle(Object sender, StyleUpdateEventArgs e)
+        {
+            if (e.NewStyleSet == null)
             {
                 return;
             }
             //相同样式集则退出
-            if (NetPainter.PaintStyle.Equals(GlobalStyle) == true)
+            if (NetPainter.PaintStyle.Equals(e.NewStyleSet) == true)
             {
                 return;
             }
-            if (GlobalStyle.Sharp == NetPainter.PaintStyle.Sharp)
+            if (e.NewStyleSet.Sharp == NetPainter.PaintStyle.Sharp)
             {
-                NetPainter.UpdateStyle(GlobalStyle);
+                NetPainter.UpdateStyle(e.NewStyleSet);
             }
             else
             {
-                switch (GlobalStyle.Sharp)
+                switch (e.NewStyleSet.Sharp)
                 {
                     case (StyleSet.sharp.Round):
-                        NetPainter = new DefaultStrategy(GlobalStyle);
+                        NetPainter = new DefaultStrategy(e.NewStyleSet);
                         break;
                 }
             }
-		}
-
-        //更新绘图网络节点坐标
-        public void UpdateLocation()
-        {
-            NetPainter.UpdateLocation(this.ToXML());
         }
 
         //刷新网络图片列表
@@ -247,7 +240,7 @@ namespace CNSP.Platform
         }
 
         //网络文件读取函数
-        public static cNet Read(string sPath,ref Error eRet, StyleSet PaintStyle = null)
+        public static cNet Read(string sPath,ref Error eRet)
         {
             string strExpand;
             cNet NewNet;
@@ -267,11 +260,7 @@ namespace CNSP.Platform
             }
 			
             //3.构造网络
-            if (PaintStyle == null)
-            {
-                PaintStyle = new StyleSet();
-            }
-            NewNet = Reader.ReadFile(sPath, PaintStyle);
+            NewNet = Reader.ReadFile(sPath);
             if (NewNet == null)
             {
                 eRet = new Error("文件格式错误");
@@ -322,7 +311,7 @@ namespace CNSP.Platform
         }
 
         //将xml文件转化为网络
-        public void XMLtoNet(XmlDocument doc, StyleSet PaintStyle)
+        public void XMLtoNet(XmlDocument doc)
         {
             int i;
             XmlNodeList Nodelist;

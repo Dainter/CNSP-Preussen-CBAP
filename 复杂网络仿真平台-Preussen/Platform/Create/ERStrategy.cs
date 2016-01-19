@@ -3,24 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CNSP.Core;
-using CNSP.Platform;
+
 
 namespace CNSP.Platform.Create
 {
     public class ERStrategy : IfCreateStrategy
     {
-        StyleSet PaintStyle;       //绘制样式
-        /*
-         * Function: ERStrategy
-         * Description:ER网络构建算法ERStrategy构造函数
-         * Parameters:
-         *      StyleSet pStyle 绘制样式集
-         * Return Value:ERStrategy
-         */
-        public ERStrategy(StyleSet pStyle)
-        {
-            PaintStyle = pStyle;
-        }
         /*
          * Function: Create
          * Description:实现IfCreateStrategy接口
@@ -38,7 +26,7 @@ namespace CNSP.Platform.Create
             intEdge = cParam.Para1;
             intLink = cParam.Para2;
             //生成网络，并初始化节点
-            NewNet = new cNet(intNum, PaintStyle);
+            NewNet = new cNet(intNum);
             for (i = 0; i < intNum; i++)
             {
                 NewNet.Network.Add(new cNode(i));

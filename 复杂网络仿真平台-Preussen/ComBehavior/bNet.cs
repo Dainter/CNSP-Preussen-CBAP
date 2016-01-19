@@ -51,7 +51,7 @@ namespace CNSP.ComBehavior
             this.Network = new List<IfComBehavior>();
             xmlroot = doc.ChildNodes.Item(0);
             Nodelist = xmlroot.ChildNodes;                                             //获取节点列表
-            NetPainter = new DefaultStrategy(PaintStyle);
+
             this.intNumber = 0;
             foreach (XmlElement curNode in Nodelist)                                      //遍历节点列表
             {
@@ -60,14 +60,18 @@ namespace CNSP.ComBehavior
                 this.Network.Add(newNode);                          //调用下层函数，生成新节点
                 this.intNumber++;
             }
-            Initialized();
+            Initialized(PaintStyle);
         }
         
         //网络初始化，在加入所有节点之后执行一次
-        public void Initialized()
+        public void Initialized(StyleSet PaintStyle)
         {
             NetworkType();//网络类型分析
             DegreeStat();//节点度统计
+            if (PaintStyle != null)
+            {
+                NetPainter = new DefaultStrategy(PaintStyle);
+            }
             NetPainter.UpdateLocation(this.ToXML());//节点坐标刷新
             NetPainter.UpdateImage();//节点图像刷新
         }

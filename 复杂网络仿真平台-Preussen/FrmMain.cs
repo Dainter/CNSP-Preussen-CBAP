@@ -39,7 +39,10 @@ namespace CNSP
         const int BaseHeight=500;           //常量，基准高度
 
         public StyleSet GlobalPaintStyle;  // 全局变量 绘图风格
-
+        //委托声明，用于处理StyleUpdate事件
+        public delegate void StyleUpdateEventHandler(Object sender, StyleUpdateEventArgs e);
+        //事件声明，用于发布Style被修改事件
+        public event StyleUpdateEventHandler StyleUpdate;
 
         Boolean  bolTrace = false;          //内部使用，标记变量
         Point LastLoc = new Point(0,0);
@@ -165,17 +168,7 @@ namespace CNSP
             {
                 FormReset();                                           				//重置当前系统
                 ComplexNet = diaNew.cNetwork;
-                ComplexNet.Initialized();
-                intFactor = Convert.ToInt32(ComplexNet.intNumber * 1.0 / 300);        //计算网络系数
-                GraphicReset();
-                //放置节点
-                PlaceNodes("Random");
-                FillMap();
-                //更新绘图网络
-                ComplexNet.UpdateLocation();
-                ComplexNet.UpdateImage();
-                ComplexNet.Draw(ref GraCam);     //绘制网络
-                AfterCreated();                     //其他事务
+                Initialized();
             }
             else if (diaNew.ShowDialog(this) == DialogResult.Abort)
             {
@@ -215,7 +208,7 @@ namespace CNSP
             Error eRet = null;
 
             FormReset();                                           				//重置当前系统
-            ComplexNet = cNet.Read(sPath, ref eRet, GlobalPaintStyle);												//调用下层函数，文件解析
+            ComplexNet = cNet.Read(sPath, ref eRet);												//调用下层函数，文件解析
             if (eRet.intError != 0)
             {
                 Cursor = Cursors.Arrow;
@@ -223,21 +216,7 @@ namespace CNSP
                 MessageBox.Show(eRet.ToString(), "警告", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return;
             }
-            //计算网络系数
-            intFactor = Convert.ToInt32(ComplexNet.intNumber * 1.0 / 300);      
-            //重置图像
-            GraphicReset();
-            //放置节点
-            PlaceNodes("Random");
-            //填充节点映射矩阵
-            FillMap();
-            //更新绘图网络
-            ComplexNet.UpdateLocation();
-            ComplexNet.UpdateImage();
-            //绘制网络结构图
-            ComplexNet.Draw(ref GraCam);    
-            //处理后续操作         					
-            AfterCreated();     
+            Initialized();
         }
 		
         //填充节点位置映射矩阵
@@ -339,6 +318,27 @@ namespace CNSP
             }
             return curPoint;
         }
+
+        private void Initialized()
+        {
+            //计算网络系数
+            intFactor = Convert.ToInt32(ComplexNet.intNumber * 1.0 / 300);
+            //重置图像
+            GraphicReset();
+            //放置节点
+            PlaceNodes("Random");
+            //填充节点映射矩阵
+            FillMap();
+            //更新绘图网络
+            ComplexNet.Initialized(GlobalPaintStyle);
+            //绘制网络结构图
+            ComplexNet.Draw(ref GraCam);
+            //处理后续操作         					
+            AfterCreated();
+            //订阅StyleSet更新事件
+            StyleUpdate += ComplexNet.UpdateStyle;
+        }
+
 
         //保存菜单项响应函数
         private void SaveMI_Click(object sender, EventArgs e)
@@ -920,7 +920,10 @@ namespace CNSP
            }
            diaOption.ShowDialog(this);
            //获取用户设置的样式集
-           GlobalPaintStyle = diaOption.CurrentStyle;
+           if (GlobalPaintStyle.Equals( diaOption.CurrentStyle) == false)
+           {
+               GlobalPaintStyle = diaOption.CurrentStyle;
+           }
            //更新当前网络图像
            UpdateStyleSet();
            diaOption.Dispose();
@@ -935,7 +938,10 @@ namespace CNSP
                return;
            }
            //更新网络内部样式集
-           ComplexNet.UpdateStyle(GlobalPaintStyle);
+           if (StyleUpdate != null)
+           {
+               StyleUpdate(this, new StyleUpdateEventArgs(GlobalPaintStyle));
+           }
            //更新图像
            ComplexNet.UpdateImage();
            //重置图像

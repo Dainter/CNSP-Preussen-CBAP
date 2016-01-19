@@ -9,6 +9,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using CNSP.DataBase;
+using CNSP.Platform.Paint;
 
 namespace CNSP.Platform
 {

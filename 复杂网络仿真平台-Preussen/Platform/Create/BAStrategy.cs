@@ -3,24 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using CNSP.Core;
-using CNSP.Platform;
 
 namespace CNSP.Platform.Create
 {
     public class BAStrategy : IfCreateStrategy
     {
-        StyleSet PaintStyle;        //绘制样式
-        /*
-         * Function: BAStrategy
-         * Description:BA网络构建算法BAStrategy构造函数
-         * Parameters:
-         *      StyleSet pStyle 绘制样式集
-         * Return Value:BAStrategy
-         */
-        public BAStrategy(StyleSet pStyle)
-        {
-            PaintStyle = pStyle;
-        }
         /*
          * Function: Create
          * Description:实现IfCreateStrategy接口
@@ -38,7 +25,7 @@ namespace CNSP.Platform.Create
             intInit = cParam.Para1;
             intLimit = cParam.Para2;
             //生成网络实例，并初始化每个节点实例
-            NewNet = new cNet(intNum, PaintStyle);
+            NewNet = new cNet(intNum);
             for (i = 0; i < intNum; i++)
             {
                 NewNet.Network.Add (new cNode(i));

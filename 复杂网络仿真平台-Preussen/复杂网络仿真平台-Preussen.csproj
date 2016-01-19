@@ -147,7 +147,7 @@
     <Compile Include="Platform\Parameter\pNet.cs" />
     <Compile Include="Platform\Parameter\pNode.cs" />
     <Compile Include="Platform\NetState.cs" />
-    <Compile Include="Platform\StyleSet.cs" />
+    <Compile Include="Platform\Paint\StyleSet.cs" />
     <Compile Include="Platform\cNet.cs" />
     <Compile Include="Platform\cNode.cs" />
     <Compile Include="Platform\IfPlatform.cs" />
