@@ -31,13 +31,14 @@ namespace CNSP.Platform
         //读入节点数据
         private void LoadNodeInfo(int iNum)     //读取节点数据信息
         {
-            int intDegree;
+            int intCom;
 
             NodeNum.Text = father.ComplexNet.Network[iNum].Number.ToString();
             NodeDeg.Text =  father.ComplexNet.Network[iNum].Degree.ToString();
             NodePos.Text =  father.ComplexNet.Network[iNum].Location.ToString();
-            intDegree = father.ComplexNet.Network[iNum].Degree;
-            NodeImage.Image = father.ComplexNet.NetPainter.Images[intDegree];
+            intCom = father.ComplexNet.Network[iNum].ComCount;
+            ComBox.Text = intCom.ToString();
+            NodeImage.Image = father.ComplexNet.NetPainter.Images[intCom];
             EdgeList.Items.Clear();
             //节点所属连边数据
             foreach (Edge edge in father.ComplexNet.Network[iNum])

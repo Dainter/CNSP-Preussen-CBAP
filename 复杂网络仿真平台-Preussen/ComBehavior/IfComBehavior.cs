@@ -14,6 +14,7 @@ namespace CNSP.ComBehavior
         int Number { get; }
         int Degree { get; }
         Point Location { get; set; }
+        int ComCount { get; set; }
         //方法-通信行为仿真专用函数
         bool AddEdge(int iTarget, int iValue);
         bool DecEdge(int iTarget);

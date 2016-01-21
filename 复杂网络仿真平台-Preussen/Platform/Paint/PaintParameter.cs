@@ -15,16 +15,16 @@ namespace CNSP.Platform.Paint
         public int x;                   //编号起点x坐标
         public int y;                   //编号起点y坐标
         public int intNum;          //节点编号
-        private int intDegree;      //节点度
+        private int intComNum;      //节点通信度
         private int intMaxDeg;      //网络最大度
         private int intMinDeg;      //网络最小度
         private float intFactor;     //节点半径最小单位
 
         //构造函数，输入节点编号，度，网络最大和最小度
-        public PaintParameter(int iNum, int iDegree, int iMax, int iMin)
+        public PaintParameter(int iNum, int iCom, int iMax, int iMin)
         {
             intNum = iNum;
-            intDegree = iDegree;
+            intComNum = iCom;
             intMinDeg = iMin;
             intMaxDeg = iMax;
             CalParameter();
@@ -41,7 +41,8 @@ namespace CNSP.Platform.Paint
             }
             intUnit = Convert.ToInt32(SystemFonts.DefaultFont.Size);
             intOffset = Convert.ToInt32(Math.Floor(Math.Log10(intNum+1)));
-            intRand = Convert.ToInt32(Math.Round((intDegree - intMinDeg) / intFactor + 7));
+            intRand = Convert.ToInt32(Math.Round((intComNum / 180.0 + 10)));
+            //intRand = Convert.ToInt32(Math.Round((intDegree - intMinDeg) / intFactor + 7));
             //如果半径过大或过小则加以限制
             if (intRand < 7)
             {

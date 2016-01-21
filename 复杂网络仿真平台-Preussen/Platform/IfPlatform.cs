@@ -13,6 +13,7 @@ namespace CNSP.Platform
         int Number { get; }
         int Degree { get; }
         Point Location { get; set; }
+        int ComCount { get; set; }
         bool AddEdge(int iTarget, int iValue);
         bool DecEdge(int iTarget);
         bool Contains(int iTarget);

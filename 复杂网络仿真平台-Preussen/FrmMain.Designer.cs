@@ -67,9 +67,13 @@ namespace CNSP
             this.ParaCalMI = new System.Windows.Forms.ToolStripMenuItem();
             this.ParaMI = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.PatternMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.ArrowMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.OptionMI = new System.Windows.Forms.ToolStripMenuItem();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.CBMI = new System.Windows.Forms.ToolStripMenuItem();
+            this.SimulateMI = new System.Windows.Forms.ToolStripMenuItem();
             this.MainLayout = new System.Windows.Forms.TableLayoutPanel();
             this.TabList = new System.Windows.Forms.TabControl();
             this.TabPage1 = new System.Windows.Forms.TabPage();
@@ -98,7 +102,6 @@ namespace CNSP
             this.DegreeChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.TabLogDist = new System.Windows.Forms.TabPage();
             this.LogDegree = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.SimulateMI = new System.Windows.Forms.ToolStripMenuItem();
             this.StatusStrip1.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.MainLayout.SuspendLayout();
@@ -304,6 +307,8 @@ namespace CNSP
             this.LogDistMI,
             this.ParaMI,
             this.toolStripSeparator1,
+            this.PatternMI,
+            this.toolStripSeparator2,
             this.OptionMI});
             this.ParaCalMI.Name = "ParaCalMI";
             this.ParaCalMI.Size = new System.Drawing.Size(60, 21);
@@ -321,6 +326,29 @@ namespace CNSP
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(202, 6);
+            // 
+            // PatternMI
+            // 
+            this.PatternMI.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.ArrowMI});
+            this.PatternMI.Name = "PatternMI";
+            this.PatternMI.Size = new System.Drawing.Size(205, 22);
+            this.PatternMI.Text = "样式(&P)";
+            // 
+            // ArrowMI
+            // 
+            this.ArrowMI.Checked = true;
+            this.ArrowMI.CheckOnClick = true;
+            this.ArrowMI.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ArrowMI.Name = "ArrowMI";
+            this.ArrowMI.Size = new System.Drawing.Size(124, 22);
+            this.ArrowMI.Text = "绘制箭头";
+            this.ArrowMI.Click += new System.EventHandler(this.ArrowMI_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(202, 6);
             // 
             // OptionMI
             // 
@@ -350,6 +378,13 @@ namespace CNSP
             this.CBMI.Name = "CBMI";
             this.CBMI.Size = new System.Drawing.Size(84, 21);
             this.CBMI.Text = "通信行为(&B)";
+            // 
+            // SimulateMI
+            // 
+            this.SimulateMI.Name = "SimulateMI";
+            this.SimulateMI.Size = new System.Drawing.Size(164, 22);
+            this.SimulateMI.Text = "通信行为仿真(&C)";
+            this.SimulateMI.Click += new System.EventHandler(this.SimulateMI_Click);
             // 
             // MainLayout
             // 
@@ -688,6 +723,7 @@ namespace CNSP
             // 
             // LogDegree
             // 
+            chartArea2.AxisX.IsLogarithmic = true;
             chartArea2.AxisX.Title = "节点度";
             chartArea2.AxisY.IsLogarithmic = true;
             chartArea2.AxisY.Title = "p(k)";
@@ -734,13 +770,6 @@ namespace CNSP
             this.LogDegree.Titles.Add(title2);
             this.LogDegree.GetToolTipText += new System.EventHandler<System.Windows.Forms.DataVisualization.Charting.ToolTipEventArgs>(this.LogDegree_GetToolTipText);
             this.LogDegree.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.LogDegree_MouseDoubleClick);
-            // 
-            // SimulateMI
-            // 
-            this.SimulateMI.Name = "SimulateMI";
-            this.SimulateMI.Size = new System.Drawing.Size(164, 22);
-            this.SimulateMI.Text = "通信行为仿真(&C)";
-            this.SimulateMI.Click += new System.EventHandler(this.SimulateMI_Click);
             // 
             // FrmMain
             // 
@@ -843,6 +872,9 @@ namespace CNSP
         private System.Windows.Forms.ToolStripMenuItem OptionMI;
         private System.Windows.Forms.ToolStripMenuItem CBMI;
         private System.Windows.Forms.ToolStripMenuItem SimulateMI;
+        private System.Windows.Forms.ToolStripMenuItem PatternMI;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem ArrowMI;
 
     }
 }

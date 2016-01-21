@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.Drawing;
 using CNSP.Core;
 
 namespace CNSP.Platform.Paint
@@ -16,6 +17,8 @@ namespace CNSP.Platform.Paint
         int intMaxDeg;          //网络最大度
         int intMinDeg;          //网络最小度
         public SortedList<int, int> DegreeList;                //网络度列表
+        public SortedList<int, Image> SharedImages;     //网络共享节点图片列表
+
         //属性
         public int Number
         {
@@ -61,6 +64,7 @@ namespace CNSP.Platform.Paint
 
             this.Network = new List<dNode>();
             DegreeList = new SortedList<int, int>();
+            SharedImages = new SortedList<int, Image>();
             xmlroot = doc.ChildNodes.Item(0);
             Nodelist = xmlroot.ChildNodes;                                             //获取节点列表
             this.intNumber = 0;
@@ -121,9 +125,9 @@ namespace CNSP.Platform.Paint
                 {
                     iMinDeg = sNode.Degree;
                 }
-                if (DegreeList.ContainsKey(sNode.Degree) == false)
+                if (DegreeList.ContainsKey(sNode.ComCount) == false)
                 {
-                    DegreeList.Add(sNode.Degree, sNode.Degree);
+                    DegreeList.Add(sNode.ComCount, sNode.ComCount);
                 }
             }
             intMaxDeg = iMaxDeg;

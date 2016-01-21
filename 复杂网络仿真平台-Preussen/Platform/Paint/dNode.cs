@@ -14,6 +14,7 @@ namespace CNSP.Platform.Paint
          //成员变量
         Node node;
         private Point potOffset;                        //绘图偏移
+        int intCom;
         //属性///////////////////////////////
         public int Number
         {
@@ -51,7 +52,17 @@ namespace CNSP.Platform.Paint
                 potOffset = value;
             }
         }
-
+        public int ComCount
+        {
+            get
+            {
+                return intCom;
+            }
+            set
+            {
+                intCom = value;
+            }
+        }
         //方法///////////////////////////////
         public dNode(int iNum)    //构造函数：新建
         {
@@ -61,13 +72,13 @@ namespace CNSP.Platform.Paint
         //从xml数据中生成节点
         public dNode(XmlElement xNode)
         {
-            XmlNode x_xml, y_xml, edges_xml;
+            XmlNode x_xml, y_xml, com_xml, edges_xml;
             Node newNode;
             int x, y, intNum, tar, value;
 
             intNum = Convert.ToInt32(xNode.Attributes.GetNamedItem("num").Value);
             newNode = new Node(intNum);                                            //新建节点
-            x_xml = y_xml = edges_xml = null;
+            x_xml = y_xml = edges_xml = com_xml = null;
             foreach (XmlNode curNode in xNode.ChildNodes)       //节点位置设置
             {
                 if (curNode.Name == "Xpos")//节点位置
@@ -78,19 +89,23 @@ namespace CNSP.Platform.Paint
                 {
                     y_xml = curNode;
                 }
+                if (curNode.Name == "ComCount")
+                {
+                    com_xml = curNode;
+                }
                 if (curNode.Name == "Edges")//获取连边列表
                 {
                     edges_xml = curNode;
                 }
             }
-            if (x_xml == null || y_xml == null || edges_xml == null)
+            if (x_xml == null || y_xml == null || edges_xml == null || com_xml == null)
             {
                 return;
             }
             x = Convert.ToInt32(x_xml.InnerText);
             y = Convert.ToInt32(y_xml.InnerText);
             newNode.Location = new Point(x, y);
-
+            this.ComCount = Convert.ToInt32(com_xml.InnerText);
             foreach (XmlNode edge in edges_xml.ChildNodes)                                     //遍历连边列表
             {
                 tar = Convert.ToInt32(edge.Attributes.GetNamedItem("Target").Value);//读出目标节点

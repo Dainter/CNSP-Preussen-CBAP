@@ -1,0 +1,5 @@
+1.输入文件增加通信量字段strCom
+2.绘图节点半径按照通信量
+intComnum = Convert.ToInt32(strCom);
+intRand = Convert.ToInt32(Math.Round((intComnum / 180.0 + 10)));
+3.菜单增加checkbox，选择绘图模式有向/无向

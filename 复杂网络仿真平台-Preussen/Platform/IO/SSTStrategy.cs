@@ -15,6 +15,7 @@ namespace CNSP.Platform.IO
         const string strEncoding = "gb2312";
         const int xPos = 1;
         const int yPos = 2;
+        const int ComPos = 3;
         const int EdgePos = 3;
         const int linkOffset = 1;
         const char SeperatorOut = '-';
@@ -118,6 +119,7 @@ namespace CNSP.Platform.IO
                 }
             }
             NewNode.Location = new Point(Convert.ToInt32(strSeg[xPos]), Convert.ToInt32(strSeg[yPos]));
+            NewNode.ComCount = Convert.ToInt32(strSeg[ComPos]);
             return NewNode;
         }
         /*
@@ -159,8 +161,8 @@ namespace CNSP.Platform.IO
         */
         public string SstString(XmlElement curNode)
         {
-            XmlNode x_xml, y_xml, edges_xml;
-            string strNum, x, y, target, value;
+            XmlNode x_xml, y_xml, com_xml, edges_xml;
+            string strNum, x, y, strCom, target, value;
             string strResult;
             string strLink;
             string strValue;
@@ -169,7 +171,7 @@ namespace CNSP.Platform.IO
             strValue = "";
             //节点编号
             strNum = curNode.Attributes.GetNamedItem("num").Value;
-            x_xml = y_xml = edges_xml = null;
+            x_xml = y_xml = com_xml = edges_xml = null;
             foreach (XmlNode xNode in curNode.ChildNodes)       //节点位置设置
             {
                 if (xNode.Name == "Xpos")//节点位置
@@ -180,20 +182,26 @@ namespace CNSP.Platform.IO
                 {
                     y_xml = xNode;
                 }
+                if (xNode.Name == "ComCount")
+                {
+                    com_xml = xNode;
+                }
                 if (xNode.Name == "Edges")//获取连边列表
                 {
                     edges_xml = xNode;
                 }
             }
-            if (x_xml == null || y_xml == null || edges_xml == null)
+            if (x_xml == null || y_xml == null || edges_xml == null || com_xml == null)
             {
                 return "";
             }
             x = x_xml.InnerText;
             y = y_xml.InnerText;
+            strCom = com_xml.InnerText;
             strResult = strNum.ToString() + "-";
             strResult += x.ToString() + "-";
             strResult += y.ToString() + "-";
+            strResult += com_xml.InnerText + "-";
             foreach (XmlNode edge in edges_xml.ChildNodes)                                     //遍历连边列表
             {
                 target = edge.Attributes.GetNamedItem("Target").Value;//读出目标节点

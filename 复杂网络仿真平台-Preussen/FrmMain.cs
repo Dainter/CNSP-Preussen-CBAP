@@ -134,8 +134,9 @@ namespace CNSP
             StartTimer.Enabled = false;
             //读入数据库中保存的样式集
             GlobalPaintStyle = dbReader.ReadCurrent();
+            GlobalPaintStyle.IsArrowShow = ArrowMI.Checked;
             //读取xml格式的zachary网络文件
-            Read(Application.StartupPath.ToString() + "\\Zachary.sst");
+            Read(Application.StartupPath.ToString() + "\\ComLink3.sst");
             //响应一次后就关，以后不再进入
             StartTimer.Enabled = false;
         }
@@ -713,7 +714,8 @@ namespace CNSP
            {
                if (ComplexNet.netState.intDegDist[i] > 0)
                {
-                   dxvalue[j] = Convert.ToInt32 (Math.Ceiling(20 * Math.Log10(Convert.ToDouble(i))));  //计算对数，填入数组
+                   //填入数组
+                   dxvalue[j] = i;
                    dyvalue[j] = ComplexNet.netState.intDegDist[i] * 1.0f / ComplexNet.intEdge;
                    j += 1;
                }
@@ -929,6 +931,12 @@ namespace CNSP
            diaOption.Dispose();
        }
 
+       private void ArrowMI_Click(object sender, EventArgs e)
+       {
+           GlobalPaintStyle.IsArrowShow = ArrowMI.Checked;
+           UpdateStyleSet();
+       }
+
         //更新样式集与图像
        void UpdateStyleSet()
        {
@@ -987,5 +995,7 @@ namespace CNSP
            frmSimulate.ShowDialog(this);
            frmSimulate.Dispose();
        }
+
+
     }
 }

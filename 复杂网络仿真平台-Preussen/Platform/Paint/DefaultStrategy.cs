@@ -13,7 +13,6 @@ namespace CNSP.Platform.Paint
     public class DefaultStrategy :IfPaintStrategy//默认网络绘制算法
     {
         StyleSet NetStyle;   //绘制使用的样式集
-        SortedList<int, Image> SharedImages;     //网络共享节点图片列表
         dNet curNetwork;
         //属性
         StyleSet IfPaintStrategy.PaintStyle
@@ -27,14 +26,17 @@ namespace CNSP.Platform.Paint
         {
             get
             {
-                return SharedImages;
+                if (curNetwork == null)
+                {
+                    return null;
+                }
+                return curNetwork.SharedImages;
             }
         }
         //构造函数，输入用户当前使用的样式集
         public DefaultStrategy(StyleSet GlobalStyle)
 		{
             NetStyle = GlobalStyle;
-            SharedImages = new SortedList<int, Image>();
 		}
 
         //更新网络样式集
@@ -65,17 +67,17 @@ namespace CNSP.Platform.Paint
             //计算每个节点的绘制参数
             foreach (dNode curNode in curNetwork.Network)
             {
-                curNodePara = new PaintParameter(curNode.Number, curNode.Degree, curNetwork.MaxDeg, curNetwork.MinDeg);
+                curNodePara = new PaintParameter(curNode.Number, curNode.ComCount, curNetwork.MaxDeg, curNetwork.MinDeg);
                 curNode.Offset = new Point(curNodePara.x, curNodePara.y);
             }
-            //绘制每个度所属的图片
+            //绘制每个通信度所属的图片
             foreach (KeyValuePair<int, int> img in curNetwork.DegreeList)
             {
                 curNodePara = new PaintParameter(img.Key, img.Key, curNetwork.MaxDeg, curNetwork.MinDeg);
                 IRet = this.DrawNode(curNodePara, false);
                 index = img.Key;
-                SharedImages.Remove(index);
-                SharedImages.Add(index, IRet);
+                curNetwork.SharedImages.Remove(index);
+                curNetwork.SharedImages.Add(index, IRet);
             }
         }
 
@@ -155,10 +157,10 @@ namespace CNSP.Platform.Paint
                     }
                     tarNode = curNetwork.Network[intTarget];
                     //起始节点的半径
-                    intRadiusSource = SharedImages[curNode.Degree].Width;
+                    intRadiusSource = curNetwork.SharedImages[curNode.ComCount].Width;
                     intRadiusSource = (intRadiusSource - 1) / 2;
                     //目标节点的半径
-                    intRadiusTarget = SharedImages[tarNode.Degree].Width;
+                    intRadiusTarget = curNetwork.SharedImages[tarNode.ComCount].Width;
                     intRadiusTarget = (intRadiusTarget - 1) / 2;
                     //如果两节点处于同一个位置，则不绘制连边保证detX，detY不同时为0
                     if ((curNode.Location.X == tarNode.Location.X)
@@ -177,7 +179,7 @@ namespace CNSP.Platform.Paint
                 {
                     continue;
                 }
-                curImg = SharedImages[curNode.Degree];
+                curImg = curNetwork.SharedImages[curNode.ComCount];
                 GraCam.DrawImage(curImg,
                                     new Point(curNode.Location.X - curImg.Width / 2,
                                                 curNode.Location.Y - curImg.Height / 2));
@@ -197,7 +199,10 @@ namespace CNSP.Platform.Paint
             //连边宽度，暂时为权重，以后扩展
             LinePen.Width = iValue;
             //箭头
-            LinePen.CustomEndCap = new AdjustableArrowCap(3, 3, true);
+            if (NetStyle.IsArrowShow == true)
+            {
+                LinePen.CustomEndCap = new AdjustableArrowCap(3, 3, true);
+            }
             //有向边起点坐标向终点方向移动iRadiusSource长度
             NewSource = LocationModify(LocSource, LocTarget, iRadiusSource);
             //有向边终点坐标向起点方向移动iRadiusTarget长度
@@ -233,7 +238,7 @@ namespace CNSP.Platform.Paint
             dNode curNode = curNetwork.Network[iNum];
 
             //计算网络绘制参数
-            curNodePara = new PaintParameter(iNum, curNode.Degree, curNetwork.MaxDeg, curNetwork.MinDeg);
+            curNodePara = new PaintParameter(iNum, curNode.ComCount, curNetwork.MaxDeg, curNetwork.MinDeg);
             //获取绘制完成的图片
             img = this.DrawNode(curNodePara, true);
             //在图元对应位置绘制图片
@@ -252,13 +257,13 @@ namespace CNSP.Platform.Paint
 
             curNode.Location = newLoc;
             //起始节点的半径
-            intRadiusSource = SharedImages[curNode.Degree].Width;
+            intRadiusSource = curNetwork.SharedImages[curNode.ComCount].Width;
             intRadiusSource = (intRadiusSource - 1) / 2;
             foreach (Edge edge in curNode)
             {
                 dNode tarNode = curNetwork.Network[edge.Target];
                 //目标节点的半径
-                intRadiusTarget = SharedImages[tarNode.Degree].Width;
+                intRadiusTarget = curNetwork.SharedImages[tarNode.ComCount].Width;
                 intRadiusTarget = (intRadiusTarget - 1) / 2;
                 //起始节点到目标点连边
                 DrawLine(ref GraCam,
@@ -281,7 +286,7 @@ namespace CNSP.Platform.Paint
                     if (tarNode.Contains(iNum) == true)
                     {
                         //目标节点的半径
-                        intRadiusTarget = SharedImages[tarNode.Degree].Width;
+                        intRadiusTarget = curNetwork.SharedImages[tarNode.ComCount].Width;
                         intRadiusTarget = (intRadiusTarget - 1) / 2;
                         //目标节点到起始节点的连边
                         DrawLine(ref GraCam,

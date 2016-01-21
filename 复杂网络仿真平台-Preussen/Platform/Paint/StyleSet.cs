@@ -23,7 +23,8 @@ namespace CNSP.Platform.Paint
         protected SmoothingMode sMode;    //显示变量 抗锯齿模式
         protected Font cFont;
         protected string strDescription;
-        
+        protected bool bolArrowShow;
+
         public enum sharp
         {
             Round = 1,
@@ -155,7 +156,17 @@ namespace CNSP.Platform.Paint
                 strDescription = value;
             }
         }
-        
+        public bool IsArrowShow
+        {
+            get
+            {
+                return bolArrowShow;
+            }
+            set
+            {
+                bolArrowShow = value;
+            }
+        }
         //方法///////////////////////////////
         //构造函数，默认构造一个样式
         public StyleSet()
@@ -171,6 +182,7 @@ namespace CNSP.Platform.Paint
             this.sMode = SmoothingMode.AntiAlias;   //0-none,1-anti,2-High Quality
             this.cFont = SystemFonts.DefaultFont;       //
             this.strDescription = "用户样式";
+            this.bolArrowShow = true;
         }
         
         //构造函数，从一个已有样式集生成
@@ -187,6 +199,7 @@ namespace CNSP.Platform.Paint
             this.sMode = Original.sMode;
             this.cFont = Original.cFont;
             this.Description = Original.Description;
+            this.bolArrowShow = Original.bolArrowShow;
         }
 
         //构造函数，从xml节点生成样式

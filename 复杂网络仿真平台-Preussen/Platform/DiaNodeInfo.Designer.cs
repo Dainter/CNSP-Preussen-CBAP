@@ -32,20 +32,14 @@ namespace CNSP.Platform
             this.ExitButton = new System.Windows.Forms.Button();
             this.GroupBox1 = new System.Windows.Forms.GroupBox();
             this.TableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.PosBox = new System.Windows.Forms.TextBox();
-            this.TypeBox = new System.Windows.Forms.TextBox();
             this.Label3 = new System.Windows.Forms.Label();
             this.NodeNum = new System.Windows.Forms.TextBox();
             this.Label4 = new System.Windows.Forms.Label();
             this.NodeDeg = new System.Windows.Forms.TextBox();
             this.Label5 = new System.Windows.Forms.Label();
-            this.WordBox = new System.Windows.Forms.TextBox();
+            this.ComBox = new System.Windows.Forms.TextBox();
             this.Label1 = new System.Windows.Forms.Label();
             this.NodePos = new System.Windows.Forms.TextBox();
-            this.Label2 = new System.Windows.Forms.Label();
-            this.LineBox = new System.Windows.Forms.TextBox();
-            this.Label6 = new System.Windows.Forms.Label();
-            this.Label7 = new System.Windows.Forms.Label();
             this.NodeImage = new System.Windows.Forms.PictureBox();
             this.EdgeList = new System.Windows.Forms.ListBox();
             this.TableLayoutPanel1.SuspendLayout();
@@ -102,20 +96,14 @@ namespace CNSP.Platform
             this.TableLayoutPanel2.ColumnCount = 2;
             this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.TableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 109F));
-            this.TableLayoutPanel2.Controls.Add(this.PosBox, 1, 5);
-            this.TableLayoutPanel2.Controls.Add(this.TypeBox, 1, 3);
             this.TableLayoutPanel2.Controls.Add(this.Label3, 0, 0);
             this.TableLayoutPanel2.Controls.Add(this.NodeNum, 1, 0);
             this.TableLayoutPanel2.Controls.Add(this.Label4, 0, 1);
             this.TableLayoutPanel2.Controls.Add(this.NodeDeg, 1, 1);
             this.TableLayoutPanel2.Controls.Add(this.Label5, 0, 2);
-            this.TableLayoutPanel2.Controls.Add(this.WordBox, 1, 2);
-            this.TableLayoutPanel2.Controls.Add(this.Label1, 0, 6);
-            this.TableLayoutPanel2.Controls.Add(this.NodePos, 1, 6);
-            this.TableLayoutPanel2.Controls.Add(this.Label2, 0, 4);
-            this.TableLayoutPanel2.Controls.Add(this.LineBox, 1, 4);
-            this.TableLayoutPanel2.Controls.Add(this.Label6, 0, 3);
-            this.TableLayoutPanel2.Controls.Add(this.Label7, 0, 5);
+            this.TableLayoutPanel2.Controls.Add(this.ComBox, 1, 2);
+            this.TableLayoutPanel2.Controls.Add(this.Label1, 0, 3);
+            this.TableLayoutPanel2.Controls.Add(this.NodePos, 1, 3);
             this.TableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.TableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
             this.TableLayoutPanel2.Name = "TableLayoutPanel2";
@@ -129,24 +117,6 @@ namespace CNSP.Platform
             this.TableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 14.28572F));
             this.TableLayoutPanel2.Size = new System.Drawing.Size(176, 302);
             this.TableLayoutPanel2.TabIndex = 1;
-            // 
-            // PosBox
-            // 
-            this.PosBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.PosBox.Location = new System.Drawing.Point(70, 226);
-            this.PosBox.Name = "PosBox";
-            this.PosBox.ReadOnly = true;
-            this.PosBox.Size = new System.Drawing.Size(103, 20);
-            this.PosBox.TabIndex = 52;
-            // 
-            // TypeBox
-            // 
-            this.TypeBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.TypeBox.Location = new System.Drawing.Point(70, 140);
-            this.TypeBox.Name = "TypeBox";
-            this.TypeBox.ReadOnly = true;
-            this.TypeBox.Size = new System.Drawing.Size(103, 20);
-            this.TypeBox.TabIndex = 51;
             // 
             // Label3
             // 
@@ -190,26 +160,26 @@ namespace CNSP.Platform
             // 
             this.Label5.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.Label5.AutoSize = true;
-            this.Label5.Location = new System.Drawing.Point(6, 101);
+            this.Label5.Location = new System.Drawing.Point(18, 101);
             this.Label5.Name = "Label5";
-            this.Label5.Size = new System.Drawing.Size(58, 13);
+            this.Label5.Size = new System.Drawing.Size(46, 13);
             this.Label5.TabIndex = 39;
-            this.Label5.Text = "词语内容:";
+            this.Label5.Text = "通信量:";
             // 
-            // WordBox
+            // ComBox
             // 
-            this.WordBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.WordBox.Location = new System.Drawing.Point(70, 97);
-            this.WordBox.Name = "WordBox";
-            this.WordBox.ReadOnly = true;
-            this.WordBox.Size = new System.Drawing.Size(103, 20);
-            this.WordBox.TabIndex = 40;
+            this.ComBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this.ComBox.Location = new System.Drawing.Point(70, 97);
+            this.ComBox.Name = "ComBox";
+            this.ComBox.ReadOnly = true;
+            this.ComBox.Size = new System.Drawing.Size(103, 20);
+            this.ComBox.TabIndex = 40;
             // 
             // Label1
             // 
             this.Label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.Label1.AutoSize = true;
-            this.Label1.Location = new System.Drawing.Point(6, 273);
+            this.Label1.Location = new System.Drawing.Point(6, 144);
             this.Label1.Name = "Label1";
             this.Label1.Size = new System.Drawing.Size(58, 13);
             this.Label1.TabIndex = 47;
@@ -218,50 +188,11 @@ namespace CNSP.Platform
             // NodePos
             // 
             this.NodePos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.NodePos.Location = new System.Drawing.Point(70, 270);
+            this.NodePos.Location = new System.Drawing.Point(70, 140);
             this.NodePos.Name = "NodePos";
             this.NodePos.ReadOnly = true;
             this.NodePos.Size = new System.Drawing.Size(103, 20);
             this.NodePos.TabIndex = 48;
-            // 
-            // Label2
-            // 
-            this.Label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Label2.AutoSize = true;
-            this.Label2.Location = new System.Drawing.Point(6, 187);
-            this.Label2.Name = "Label2";
-            this.Label2.Size = new System.Drawing.Size(58, 13);
-            this.Label2.TabIndex = 43;
-            this.Label2.Text = "语句编号:";
-            // 
-            // LineBox
-            // 
-            this.LineBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this.LineBox.Location = new System.Drawing.Point(70, 183);
-            this.LineBox.Name = "LineBox";
-            this.LineBox.ReadOnly = true;
-            this.LineBox.Size = new System.Drawing.Size(103, 20);
-            this.LineBox.TabIndex = 46;
-            // 
-            // Label6
-            // 
-            this.Label6.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Label6.AutoSize = true;
-            this.Label6.Location = new System.Drawing.Point(30, 144);
-            this.Label6.Name = "Label6";
-            this.Label6.Size = new System.Drawing.Size(34, 13);
-            this.Label6.TabIndex = 49;
-            this.Label6.Text = "词性:";
-            // 
-            // Label7
-            // 
-            this.Label7.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.Label7.AutoSize = true;
-            this.Label7.Location = new System.Drawing.Point(6, 230);
-            this.Label7.Name = "Label7";
-            this.Label7.Size = new System.Drawing.Size(58, 13);
-            this.Label7.TabIndex = 50;
-            this.Label7.Text = "句中位置:";
             // 
             // NodeImage
             // 
@@ -312,20 +243,14 @@ namespace CNSP.Platform
         internal System.Windows.Forms.Button ExitButton;
         internal System.Windows.Forms.GroupBox GroupBox1;
         internal System.Windows.Forms.TableLayoutPanel TableLayoutPanel2;
-        internal System.Windows.Forms.TextBox PosBox;
-        internal System.Windows.Forms.TextBox TypeBox;
         internal System.Windows.Forms.Label Label3;
         internal System.Windows.Forms.TextBox NodeNum;
         internal System.Windows.Forms.Label Label4;
         internal System.Windows.Forms.TextBox NodeDeg;
         internal System.Windows.Forms.Label Label5;
-        internal System.Windows.Forms.TextBox WordBox;
+        internal System.Windows.Forms.TextBox ComBox;
         internal System.Windows.Forms.Label Label1;
         internal System.Windows.Forms.TextBox NodePos;
-        internal System.Windows.Forms.Label Label2;
-        internal System.Windows.Forms.TextBox LineBox;
-        internal System.Windows.Forms.Label Label6;
-        internal System.Windows.Forms.Label Label7;
         internal System.Windows.Forms.PictureBox NodeImage;
         internal System.Windows.Forms.ListBox EdgeList;
     }
